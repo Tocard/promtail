@@ -1,0 +1,15 @@
+---
+promtail_owner: promtail
+promtail_group: promtail
+
+promtail_loki_url: "mythologic.fr:3100"
+
+promtail_package_suffix: "{% '.deb' if 'Ubuntu' in ansible_distribution or 'Fedora' in ansible_distribution else '.rpm' %}"
+
+
+promtail_custom_become_method: "{% 'sudo' if 'Ubuntu' in ansible_distribution or 'Fedora' in ansible_distribution else 'su' %}"
+
+promtail_package_identifier:  "{% '_amd64.deb' if 'Ubuntu' in ansible_distribution or 'Debian' in ansible_distribution else '.x86_64.rpm' %}"
+promtail_package_base: "{{ promtail_package_identifier }}"
+promtail_download_url: "https://github.com/grafana/loki/releases/download/v{{ promtail_download_version }}/promtail_{{ promtail_download_version }}{{ promtail_package_identifier }}"
+promtail_download_desination: "{{ promtail_root_path }}/promtail_{{ promtail_download_version}}{{ package_suffix }}"
